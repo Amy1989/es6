@@ -23,6 +23,8 @@ let promise = new Promise(function(resolve, reject) {
 
 promise.then(function() {
   console.log('Resolved.');
+},function(){
+	//失败
 });
 
 console.log('Hi!');
@@ -41,7 +43,14 @@ Promise新建后立即执行，所以首先输出的是“Promise”。然后，
 
 `promise.all` 方法用于将多个Promise实例，包装成一个新的Promise实例。
     
-    var p = Promise.all([p1, p2, p3]);
+        var p = Promise.all([p1, p2, p3]).then(function (posts) {
+	      // ...
+	    }).catch(function(reason){
+	      // ...
+	    });
+	
+只有p1、p2、p3的状态都变成fulfilled，p的状态才会变成fulfilled，只要p1、p2、p3之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数。
+
 ```js
 Promise.all([
     fetchPromised("http://backend/foo.txt", 500),
@@ -82,6 +91,21 @@ fetchAll([
 
 	
 ```
+> Promise.prototype.catch()
+
+```js
+var p1 = new Promise(function(resolve, reject) {
+  resolve("成功");
+});
+
+p1.then(function(value) {
+  console.log(value); // "成功!"
+  throw "哦，不!";
+}).catch(function(e) {
+  console.log(e); // "哦，不!"
+});
+```
+
 
 
 
