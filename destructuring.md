@@ -37,3 +37,27 @@ d === undefined
 
 
 ```
+
+函数参数传参
+
+```js
+function foo(name, {age= 10, sex= 'gril'}){
+	console.log(name)
+	console.log(age)
+}
+
+foo('liming', {age: 20});
+```
+
+...rest
+
+```js
+function foo(...rest){//(name,...rest)到在后面
+	console.log(arguments) //{ '0': 'liming', '1': 18 }
+	console.log([].slice.apply(arguments)) 
+	console.log([...rest]) //[ 'liming', 18 ]
+}
+
+foo('liming', 18);
+
+```

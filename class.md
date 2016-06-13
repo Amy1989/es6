@@ -73,7 +73,14 @@ fn.test = function(){
 };
 
 ```
-
+不能直接地定义静态成员变量，但若必须实现此类需求，可以用static 加上 get 语句和 set 语句实现
+    class SyncObject {
+      // ...
+    
+      static get baseUrl() {
+    	return 'http://example.com/api/sync'
+      }
+    }
 #####继承
 
 ```js
@@ -133,11 +140,75 @@ inst.prop = 123;
 // setter: 123
 
 console.log(inst.prop)// 'getter
+
 ```
 
+ES2015 中对类的定义依然不支持默认属性的语法,而在 TypeScript 中则有良好的实现。
+    
+    // 理想型
+    class Person {
+      name: String
+      gender = 'man'
+      // ...
+    }
+## 支持 __proto__ 注入 ##
+
+```js
+class Foo {
+  constructor() {
+    this.pingMsg = 'pong'
+  }
+
+  ping() {
+    console.log(this.pingMsg)
+  }
+}
+
+let o = {
+  __proto__: new Foo()
+}
+
+o.ping() //=> pong
+
+//有一个比较特殊的场景会需要用到：想扩展或者覆盖一个类的方法，并生成一个实例，但觉得另外定义一个类就感觉浪费了
+let o = {
+  __proto__: new Foo(),
+
+  constructor() {
+    this.pingMsg = 'alive'
+  },
+
+  msg: 'bang',
+  yell() {
+    console.log(this.msg)
+  }
+}
+
+o.yell() //=> bang
+o.ping() //=> alive
+
+```
+- 
+- 缺点：
+- 
+- 不支持私有属性（private）
+- 不支持前置属性定义，但可用 get 语句和 set 语句实现
+- 不支持多重继承
+- 没有类似于协议（Protocl）或接口（Interface）等的概念
 
 
+## ts ##
 
+当成员被标记成private时，它就不能在声明它的类的外部访问,默认是public
+protected修饰符与private修饰符的行为很相似，但有一点不同，protected成员在派生类中仍然可以访问
+```js
+class Animal {
+	public age: number;
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+}
 
+new Animal("Cat").name; // Error: 'name' is private;
 
+```
 

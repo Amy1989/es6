@@ -9,4 +9,24 @@ es5
 	})
 	console.log(i) // 报错
 
+```js
+<button>一</button>
+<button>二</button>
+<button>三</button>
+<button>四</button>
+
+<div id="output"></div>
+
+<script>
+  var buttons = document.querySelectorAll('button')
+  var output = document.querySelector('#output')
+
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function() {
+      output.innerText = buttons[i].innerText
+    })
+  }
+</script>
+```
+
 

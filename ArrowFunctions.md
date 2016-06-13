@@ -18,7 +18,7 @@ nums  = evens.map(function (v, i) { return v + i; });
 （2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
 （3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。
 （4）不可以使用yield命令，因此箭头函数不能用作Generator函数。
-
+ (5) 箭头函数对上下文的绑定是强制性的，无法通过 apply 或 call 方法改变其上下文
 
 ```js
 function foo() {
@@ -32,6 +32,30 @@ var id = 21;
 foo.call({ id: 42 });
 // id: 42
 
+```
+箭头函数会绑定上下文的特性，故不能随意在顶层作用域使用箭头函数，以防出错：
+
+```js
+// 假设当前运行环境为浏览器，故顶层作上下文为 `window`
+let obj = {
+  msg: 'pong',
+
+  ping: () => {
+    return this.msg // Warning!
+  }
+}
+
+obj.ping() //=> undefined
+let msg = 'bang!'
+obj.ping() //=> bang!
+
+//等价代码
+let obj = {
+  // ...
+  ping: (function() {
+    return this.msg // Warning!
+  }).bind(this)
+}
 ```
 
 ## 与解构赋值默认值结合使用 ##
