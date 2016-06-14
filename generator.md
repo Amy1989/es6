@@ -23,6 +23,9 @@ hw.next()
 
 
 ```
+> 话说话的猫
+http://people.mozilla.org/~jorendorff/demos/meow.html
+
 > yield语句
 
 由于Generator函数返回的遍历器对象，只有调用next方法才会遍历下一个内部状态，所以其实提供了一种可以暂停执行的函数。yield语句就是暂停标志。
