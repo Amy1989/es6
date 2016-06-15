@@ -218,8 +218,16 @@ new Animal("Cat").name; // Error: 'name' is private;
 ```
 注： 私有属性如果想被外界访问用setter getter
 
-
-
+## decorator ##
+若要启用实验性的decorator，你必须启用experimentalDecorators编译器选项，在命令行中或在tsconfig.json
+```js
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "experimentalDecorators": true
+    }
+}
+```
 
 
 

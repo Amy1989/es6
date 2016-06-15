@@ -78,6 +78,43 @@ for...in循环：只遍历对象自身的和继承的可枚举的属性
 Object.keys()：返回对象自身的所有可枚举的属性的键名
 JSON.stringify()：只串行化对象自身的可枚举的属性
 
+> object 支持 __proto__ 注入
+
+```js
+class Foo {
+  constructor() {
+    this.pingMsg = 'pong'
+  }
+
+  ping() {
+    console.log(this.pingMsg)
+  }
+}
+
+let o = {
+  __proto__: new Foo()
+}
+
+o.ping() //=> pong
+
+//有一个比较特殊的场景会需要用到：想扩展或者覆盖一个类的方法，并生成一个实例，但觉得另外定义一个类就感觉浪费了
+let o = {
+  __proto__: new Foo(),
+
+  constructor() {
+    this.pingMsg = 'alive'
+  },
+
+  msg: 'bang',
+  yell() {
+    console.log(this.msg)
+  }
+}
+
+o.yell() //=> bang
+o.ping() //=> alive
+
+```
 
 ##Aarray##
 

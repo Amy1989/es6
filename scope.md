@@ -5,7 +5,7 @@
 es5
 
 	(function(){
-	for(var i=0; i<5; i++){}
+	    for(var i=0; i<5; i++){}
 	})
 	console.log(i) // 报错
 
@@ -23,10 +23,19 @@ es5
 
   for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function() {
-      output.innerText = buttons[i].innerText
+      output.innerText = buttons[i].innerText //报错，这时的i是4
     })
   }
 </script>
+
+//es5
+for (var i = 0; i < buttons.length; i++) {
+  	(function(i){
+  		buttons[i].addEventListener('click', function() {
+  		  output.innerText = buttons[i].innerText
+  		})
+  	}(i))
+  }
 ```
 
 

@@ -151,43 +151,7 @@ ES2015 中对类的定义依然不支持默认属性的语法,而在 TypeScript 
       gender = 'man'
       // ...
     }
-## 支持 __proto__ 注入 ##
 
-```js
-class Foo {
-  constructor() {
-    this.pingMsg = 'pong'
-  }
-
-  ping() {
-    console.log(this.pingMsg)
-  }
-}
-
-let o = {
-  __proto__: new Foo()
-}
-
-o.ping() //=> pong
-
-//有一个比较特殊的场景会需要用到：想扩展或者覆盖一个类的方法，并生成一个实例，但觉得另外定义一个类就感觉浪费了
-let o = {
-  __proto__: new Foo(),
-
-  constructor() {
-    this.pingMsg = 'alive'
-  },
-
-  msg: 'bang',
-  yell() {
-    console.log(this.msg)
-  }
-}
-
-o.yell() //=> bang
-o.ping() //=> alive
-
-```
 - 
 - 缺点：
 - 
