@@ -192,9 +192,8 @@ o.ping() //=> alive
 - 缺点：
 - 
 - 不支持私有属性（private）
-- 不支持前置属性定义，但可用 get 语句和 set 语句实现
 - 不支持多重继承
-- 没有类似于协议（Protocl）或接口（Interface）等的概念
+
 
 
 ## ts ##
